@@ -6,162 +6,162 @@
 <title>Cornelius Aurelius — AI ART</title>
 
 <style>
-/* -------------------------------------------------
-   GLOBAL — ULTRA-CINEMATIC AI-ART MODE
+/* --------------------------------------------------
+    GLOBAL — DARK NEON / HOLOGRAPHIC AESTHETIC
 -------------------------------------------------- */
 body {
     margin: 0;
+    background: #02040a;
     font-family: 'Inter', sans-serif;
-    background: #01030a;
     color: #fff;
     overflow-x: hidden;
-    overscroll-behavior: none;
 }
 
-/* MULTI-LAYER NEBULA BACKGROUND */
+/* Animated nebula */
 body::before {
     content: "";
     position: fixed;
     inset: 0;
-    background:
-        radial-gradient(circle at 30% 20%, rgba(0,140,255,0.25), transparent 60%),
-        radial-gradient(circle at 80% 80%, rgba(255,0,150,0.28), transparent 70%),
-        radial-gradient(circle at 20% 70%, rgba(0,255,200,0.25), transparent 70%);
-    filter: blur(120px);
-    animation: nebulaShift 20s ease-in-out infinite alternate;
+    background: radial-gradient(circle at 40% 20%, rgba(0,120,255,0.25), transparent),
+                radial-gradient(circle at 70% 80%, rgba(255,0,150,0.25), transparent),
+                radial-gradient(circle at 20% 70%, rgba(0,255,200,0.2), transparent);
+    filter: blur(100px);
+    animation: nebula 22s ease-in-out infinite alternate;
     z-index: -3;
 }
-@keyframes nebulaShift {
-    0% { transform: scale(1) translate(0,0); opacity: .8; }
-    100% { transform: scale(1.2) translate(0,-60px); opacity: 1; }
+@keyframes nebula { 
+    0% {transform:scale(1) translate(0,0);} 
+    100% {transform:scale(1.15) translate(0,-40px);} 
 }
 
-/* PARTICLE FIELD */
+/* Particle field */
 #particles {
     position: fixed;
     inset: 0;
     background-image: url("https://raw.githubusercontent.com/Cornelius-Aurelius/AI-ART/main/particles.png");
-    opacity: .22;
-    animation: drift 100s linear infinite;
+    opacity: .27;
+    animation: drift 80s linear infinite;
     pointer-events: none;
-    z-index: -2;
+    z-index:-2;
 }
-@keyframes drift {
-    to { background-position: 2000px 2000px; }
+@keyframes drift { 
+    0% {background-position:0 0;} 
+    100% {background-position:2000px 2000px;} 
 }
 
-/* HOLOGRAPHIC HEADER TITLE */
+/* Title */
 header {
     text-align: center;
-    padding: 80px 20px 40px;
-    font-size: 72px;
+    padding: 70px 20px 30px;
+    font-size: 64px;
     font-weight: 900;
     text-transform: uppercase;
     letter-spacing: 4px;
     background: linear-gradient(90deg, #ff00ff, #00eaff, #b3ff00, #ff6a00, #ff00ff);
     background-size: 400%;
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    animation: holo 10s linear infinite;
+    -webkit-background-clip:text;
+    -webkit-text-fill-color:transparent;
+    animation: shine 8s linear infinite;
 }
-@keyframes holo {
-    0% { background-position: 0% 50%; }
-    100% { background-position: 400% 50%; }
+@keyframes shine {
+    0%{background-position:0% 50%;}
+    100%{background-position:400% 50%;}
 }
 
-/* -------------------------------------------------
-   CINEMATIC MASONRY GRID
+/* --------------------------------------------------
+    MASONRY GALLERY
 -------------------------------------------------- */
 .grid {
     column-count: 5;
-    column-gap: 26px;
-    padding: 35px;
+    column-gap: 25px;
+    padding: 30px;
 }
-@media(max-width:1500px){ .grid{column-count:4;} }
-@media(max-width:1100px){ .grid{column-count:3;} }
+@media(max-width:1600px){ .grid{column-count:4;} }
+@media(max-width:1200px){ .grid{column-count:3;} }
 @media(max-width:800px){ .grid{column-count:2;} }
 @media(max-width:500px){ .grid{column-count:1;} }
 
 .item {
     break-inside: avoid;
-    margin-bottom: 28px;
-    border-radius: 22px;
+    margin-bottom: 25px;
+    border-radius: 20px;
     overflow: hidden;
-    background: rgba(255,255,255,0.05);
-    backdrop-filter: blur(16px) saturate(200%);
+    background: rgba(255,255,255,0.04);
+    backdrop-filter: blur(14px) saturate(200%);
     border: 1px solid rgba(255,255,255,0.12);
     cursor: pointer;
-    position: relative;
     transition: all .3s ease;
 }
 .item:hover {
-    transform: translateY(-10px) scale(1.03);
-    box-shadow: 0 0 40px rgba(0,255,255,0.38);
-    filter: brightness(1.25);
+    transform: translateY(-8px) scale(1.02);
+    box-shadow: 0 0 32px rgba(0,255,255,0.3);
+    filter: brightness(1.22);
 }
 
-/* SHIMMER LOADING */
+.item img {
+    width: 100%;
+    display: block;
+}
+
+/* Loading shimmer */
 .shimmer {
-    height: 360px;
-    background: linear-gradient(90deg,#1b1b1b,#333,#1b1b1b);
+    height: 340px;
+    background: linear-gradient(90deg, #1b1b1b, #333, #1b1b1b);
     background-size:200%;
-    animation: shimmerMove 1.6s infinite;
+    animation: shimmerMove 1.5s infinite;
 }
 @keyframes shimmerMove {
-    from {background-position:-200% 0;}
-    to {background-position:200% 0;}
+    0%{background-position:-200% 0;}
+    100%{background-position:200% 0;}
 }
 
-/* -------------------------------------------------
-   FULLSCREEN VIEWER — ZOOM + NAVIGATION
+/* --------------------------------------------------
+    FULLSCREEN VIEWER + ZOOM
 -------------------------------------------------- */
 #viewer {
+    display: none;
     position: fixed;
     inset: 0;
     background: rgba(0,0,0,.95);
-    backdrop-filter: blur(14px);
-    display: none;
-    justify-content: center;
-    align-items: center;
-    z-index: 999999;
+    justify-content:center;
+    align-items:center;
+    z-index:999999;
+    backdrop-filter: blur(10px);
 }
-
-#viewerImg {
+#viewer img {
     max-width: 92%;
     max-height: 92%;
     border-radius: 20px;
-    box-shadow: 0 0 50px rgba(0,255,255,0.35);
-    transition: transform .2s ease;
+    box-shadow: 0 0 40px rgba(0,255,255,0.3);
+    transition:transform .2s ease;
 }
-
 #viewerClose {
     position: absolute;
     top: 20px;
     right: 40px;
-    font-size: 60px;
+    font-size: 55px;
     cursor: pointer;
-    color: #fff;
 }
 
-/* -------------------------------------------------
-   FOOTER
+/* --------------------------------------------------
+    FOOTER
 -------------------------------------------------- */
 footer {
-    text-align: center;
-    padding: 55px 0 65px;
-    font-size: 18px;
-    opacity: .8;
+    text-align:center;
+    padding:50px 0 60px;
+    font-size:18px;
+    opacity:.8;
 }
 footer a { 
     color:#00eaff;
-    font-weight:bold;
     text-decoration:none;
+    font-weight:bold;
     transition:.3s;
 }
 footer a:hover { color:#ff00ff; }
+
 </style>
 </head>
-
 <body>
 
 <div id="particles"></div>
@@ -176,23 +176,48 @@ footer a:hover { color:#ff00ff; }
 </div>
 
 <footer>
-    Created by <a href="https://www.instagram.com/cornelius_aurelius_/" target="_blank">Cornelius Aurelius</a>
+Created by <a href="https://www.instagram.com/cornelius_aurelius_/" target="_blank">Cornelius Aurelius</a>
 </footer>
 
 <script>
-/* FULL IMAGE LIST — 1 → 253 */
-const images = [];
-for(let i=1;i<=253;i++){ images.push(i + ".png"); }
+/* --------------------------------------------------
+    FULL EXPLICIT IMAGE LIST (1–253)
+-------------------------------------------------- */
+const images = [
+"1.png","2.png","3.png","4.png","5.png","6.png","7.png","8.png","9.png","10.png",
+"11.png","12.png","13.png","14.png","15.png","16.png","17.png","18.png","19.png","20.png",
+"21.png","22.png","23.png","24.png","25.png","26.png","27.png","28.png","29.png","30.png",
+"31.png","32.png","33.png","34.png","35.png","36.png","37.png","38.png","39.png","40.png",
+"41.png","42.png","43.png","44.png","45.png","46.png","47.png","48.png","49.png","50.png",
+"51.png","52.png","53.png","54.png","55.png","56.png","57.png","58.png","59.png","60.png",
+"61.png","62.png","63.png","64.png","65.png","66.png","67.png","68.png","69.png","70.png",
+"71.png","72.png","73.png","74.png","75.png","76.png","77.png","78.png","79.png","80.png",
+"81.png","82.png","83.png","84.png","85.png","86.png","87.png","88.png","89.png","90.png",
+"91.png","92.png","93.png","94.png","95.png","96.png","97.png","98.png","99.png","100.png",
+"101.png","102.png","103.png","104.png","105.png","106.png","107.png","108.png","109.png","110.png",
+"111.png","112.png","113.png","114.png","115.png","116.png","117.png","118.png","119.png","120.png",
+"121.png","122.png","123.png","124.png","125.png","126.png","127.png","128.png","129.png","130.png",
+"131.png","132.png","133.png","134.png","135.png","136.png","137.png","138.png","139.png","140.png",
+"141.png","142.png","143.png","144.png","145.png","146.png","147.png","148.png","149.png","150.png",
+"151.png","152.png","153.png","154.png","155.png","156.png","157.png","158.png","159.png","160.png",
+"161.png","162.png","163.png","164.png","165.png","166.png","167.png","168.png","169.png","170.png",
+"171.png","172.png","173.png","174.png","175.png","176.png","177.png","178.png","179.png","180.png",
+"181.png","182.png","183.png","184.png","185.png","186.png","187.png","188.png","189.png","190.png",
+"191.png","192.png","193.png","194.png","195.png","196.png","197.png","198.png","199.png","200.png",
+"201.png","202.png","203.png","204.png","205.png","206.png","207.png","208.png","209.png","210.png",
+"211.png","212.png","213.png","214.png","215.png","216.png","217.png","218.png","219.png","220.png",
+"221.png","222.png","223.png","224.png","225.png","226.png","227.png","228.png","229.png","230.png",
+"231.png","232.png","233.png","234.png","235.png","236.png","237.png","238.png","239.png","240.png",
+"241.png","242.png","243.png","244.png","245.png","246.png","247.png","248.png","249.png","250.png",
+"251.png","252.png","253.png"
+];
 
 const gallery = document.getElementById("gallery");
-const viewer = document.getElementById("viewer");
-const viewerImg = document.getElementById("viewerImg");
-const viewerClose = document.getElementById("viewerClose");
-
 const baseURL = "https://raw.githubusercontent.com/Cornelius-Aurelius/AI-ART/main/";
 
-/* CREATE GALLERY */
+/* Generate cards */
 images.forEach(file => {
+
     const wrap = document.createElement("div");
     wrap.className = "item";
 
@@ -200,13 +225,13 @@ images.forEach(file => {
     shimmer.className = "shimmer";
 
     const img = document.createElement("img");
-    img.style.display = "none";
-    img.loading = "lazy";
+    img.style.display="none";
     img.src = baseURL + file;
+    img.loading = "lazy";
 
     img.onload = () => {
         shimmer.remove();
-        img.style.display = "block";
+        img.style.display="block";
     };
 
     img.onclick = () => openViewer(baseURL + file);
@@ -216,42 +241,22 @@ images.forEach(file => {
     gallery.appendChild(wrap);
 });
 
-/* VIEWER CONTROLS */
+/* VIEWER */
+const viewer = document.getElementById("viewer");
+const viewerImg = document.getElementById("viewerImg");
+
 function openViewer(src){
     viewerImg.src = src;
     viewer.style.display = "flex";
 }
 
-viewerClose.onclick = () => viewer.style.display = "none";
-viewer.onclick = e => { if(e.target === viewer) viewer.style.display="none"; }
+document.getElementById("viewerClose").onclick = () => viewer.style.display="none";
 
-/* ZOOM */
-viewerImg.onwheel = e => {
-    e.preventDefault();
-    let scale = Math.exp(e.deltaY * -0.001);
-    viewerImg.style.transform = `scale(${scale})`;
-};
-
-/* ARROW KEY NAVIGATION */
-document.onkeydown = e => {
-    if(viewer.style.display !== "flex") return;
-
-    let current = viewerImg.src.split("/").pop();
-    let index = images.indexOf(current);
-
-    if(e.key === "ArrowRight"){
-        let next = images[index+1] || images[0];
-        viewerImg.src = baseURL + next;
-    }
-    if(e.key === "ArrowLeft"){
-        let prev = images[index-1] || images[images.length-1];
-        viewerImg.src = baseURL + prev;
-    }
-    if(e.key === "Escape"){
-        viewer.style.display = "none";
-    }
+viewer.onclick = (e) => {
+    if(e.target === viewer) viewer.style.display="none";
 };
 </script>
+
 </body>
 </html>
 
