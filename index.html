@@ -160,6 +160,49 @@ footer a {
 }
 footer a:hover { color:#ff00ff; }
 
+/* --------------------------------------------------
+    ANXIETY-FREE LOADING NOTICE
+-------------------------------------------------- */
+#loadingNotice {
+    position: fixed;
+    bottom: 25px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: rgba(0,0,0,0.55);
+    border: 1px solid rgba(0,255,255,0.35);
+    padding: 16px 24px;
+    border-radius: 14px;
+    font-size: 17px;
+    font-weight: 500;
+    color: #bafaff;
+    backdrop-filter: blur(12px);
+    box-shadow: 0 0 25px rgba(0,255,255,0.25);
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity .5s ease;
+    z-index: 999999;
+}
+
+#loadingNotice span {
+    animation: pulse 2.2s infinite ease-in-out;
+}
+
+@keyframes pulse {
+    0% { opacity: .7; }
+    50% { opacity: 1; }
+    100% { opacity: .7; }
+}
+
+#loadingNotice em {
+    color:#00eaff;
+    font-style: normal;
+    text-decoration: underline;
+}
+
+#loadingNotice.show {
+    opacity: 1;
+    pointer-events: auto;
+}
 </style>
 </head>
 <body>
@@ -173,6 +216,12 @@ footer a:hover { color:#ff00ff; }
 <div id="viewer">
     <div id="viewerClose">&times;</div>
     <img id="viewerImg">
+</div>
+
+<!-- CALM REFRESH / REASSURANCE MESSAGE -->
+<div id="loadingNotice">
+    <span>Loading artwork… please wait</span><br>
+    <small>If this takes too long, <em>tap to refresh</em>.</small>
 </div>
 
 <footer>
@@ -215,9 +264,33 @@ const images = [
 const gallery = document.getElementById("gallery");
 const baseURL = "https://raw.githubusercontent.com/Cornelius-Aurelius/AI-ART/main/";
 
-/* Generate cards */
-images.forEach(file => {
+/* --------------------------------------------------
+    LOADING NOTICE CONTROL
+-------------------------------------------------- */
+const notice = document.getElementById("loadingNotice");
+let noticeShown = false;
 
+setTimeout(() => {
+    notice.classList.add("show");
+    noticeShown = true;
+}, 3000);
+
+notice.onclick = () => {
+    if (noticeShown) location.reload();
+};
+
+let loaded = 0;
+function calmHideCheck() {
+    loaded++;
+    if (loaded > 10 && noticeShown) {
+        notice.classList.remove("show");
+    }
+}
+
+/* --------------------------------------------------
+    GENERATE GALLERY
+-------------------------------------------------- */
+images.forEach(file => {
     const wrap = document.createElement("div");
     wrap.className = "item";
 
@@ -232,6 +305,7 @@ images.forEach(file => {
     img.onload = () => {
         shimmer.remove();
         img.style.display="block";
+        calmHideCheck();
     };
 
     img.onclick = () => openViewer(baseURL + file);
@@ -241,13 +315,15 @@ images.forEach(file => {
     gallery.appendChild(wrap);
 });
 
-/* VIEWER */
+/* --------------------------------------------------
+    VIEWER
+-------------------------------------------------- */
 const viewer = document.getElementById("viewer");
 const viewerImg = document.getElementById("viewerImg");
 
 function openViewer(src){
     viewerImg.src = src;
-    viewer.style.display = "flex";
+    viewer.style.display="flex";
 }
 
 document.getElementById("viewerClose").onclick = () => viewer.style.display="none";
@@ -259,4 +335,3 @@ viewer.onclick = (e) => {
 
 </body>
 </html>
-
