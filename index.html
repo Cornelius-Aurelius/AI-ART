@@ -6,8 +6,9 @@
 <title>Cornelius Aurelius — AI ART</title>
 
 <style>
+
 /* --------------------------------------------------
-    GLOBAL — NO VISUAL CHANGES, ONLY SPEED FIXES
+   GLOBAL STYLE — HOLOGRAPHIC DARK NEON
 -------------------------------------------------- */
 body {
     margin: 0;
@@ -17,251 +18,326 @@ body {
     overflow-x: hidden;
 }
 
-/* Nebula */
+/* Animated nebula background */
 body::before {
     content: "";
     position: fixed;
     inset: 0;
-    background: radial-gradient(circle at 40% 20%, rgba(0,120,255,0.25), transparent),
-                radial-gradient(circle at 70% 80%, rgba(255,0,150,0.25), transparent),
-                radial-gradient(circle at 20% 70%, rgba(0,255,200,0.2), transparent);
-    filter: blur(100px);
-    animation: nebula 22s ease-in-out infinite alternate;
+    background:
+        radial-gradient(circle at 40% 20%, rgba(0,120,255,0.25), transparent),
+        radial-gradient(circle at 70% 80%, rgba(255,0,150,0.22), transparent),
+        radial-gradient(circle at 20% 70%, rgba(0,255,200,0.18), transparent);
+    filter: blur(110px);
+    animation: nebula 24s ease-in-out infinite alternate;
     z-index: -3;
 }
-@keyframes nebula { 
-    0% {transform:scale(1);} 
-    100% {transform:scale(1.15);} 
+
+@keyframes nebula {
+    0% { transform: scale(1) translate(0, 0); }
+    100% { transform: scale(1.13) translate(0, -50px); }
 }
 
-/* Particles */
+/* Moving particle layer */
 #particles {
     position: fixed;
     inset: 0;
     background-image: url("https://raw.githubusercontent.com/Cornelius-Aurelius/AI-ART/main/particles.png");
-    opacity: .27;
-    animation: drift 80s linear infinite;
+    opacity: .25;
+    animation: drift 85s linear infinite;
     pointer-events: none;
-    z-index:-2;
-}
-@keyframes drift { 
-    0% {background-position:0 0;} 
-    100% {background-position:2000px 2000px;} 
+    z-index: -2;
 }
 
-/* Title */
+@keyframes drift {
+    from { background-position: 0 0; }
+    to   { background-position: 2600px 2000px; }
+}
+
+/* --------------------------------------------------
+   HEADER TITLE
+-------------------------------------------------- */
 header {
     text-align: center;
-    padding: 70px 20px 30px;
+    padding: 70px 20px 40px;
     font-size: 64px;
     font-weight: 900;
-    text-transform: uppercase;
     letter-spacing: 4px;
+    text-transform: uppercase;
     background: linear-gradient(90deg, #ff00ff, #00eaff, #b3ff00, #ff6a00, #ff00ff);
-    background-size: 400%;
-    -webkit-background-clip:text;
-    -webkit-text-fill-color:transparent;
-    animation: shine 8s linear infinite;
-}
-@keyframes shine {
-    0%{background-position:0% 50%;}
-    100%{background-position:400% 50%;}
+    background-size: 450%;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    animation: shine 9s linear infinite;
 }
 
-/* Gallery */
+@keyframes shine {
+    0% { background-position: 0% 50%; }
+    100% { background-position: 450% 50%; }
+}
+
+/* --------------------------------------------------
+   MASONRY GALLERY
+-------------------------------------------------- */
 .grid {
     column-count: 5;
-    column-gap: 25px;
+    column-gap: 28px;
     padding: 30px;
 }
-@media(max-width:1600px){ .grid{column-count:4;} }
-@media(max-width:1200px){ .grid{column-count:3;} }
-@media(max-width:800px){ .grid{column-count:2;} }
-@media(max-width:500px){ .grid{column-count:1;} }
+
+@media(max-width:1600px) { .grid { column-count: 4; } }
+@media(max-width:1200px) { .grid { column-count: 3; } }
+@media(max-width:800px)  { .grid { column-count: 2; } }
+@media(max-width:500px)  { .grid { column-count: 1; } }
 
 .item {
     break-inside: avoid;
-    margin-bottom: 25px;
-    border-radius: 20px;
+    margin-bottom: 28px;
+    border-radius: 22px;
     overflow: hidden;
-    background: rgba(255,255,255,0.04);
-    backdrop-filter: blur(14px) saturate(200%);
-    border: 1px solid rgba(255,255,255,0.12);
+    background: rgba(255,255,255,0.05);
+    backdrop-filter: blur(14px) saturate(190%);
+    border: 1px solid rgba(255,255,255,0.13);
     cursor: pointer;
-    transition: all .3s ease;
+    transition: .3s ease;
 }
+
 .item:hover {
-    transform: translateY(-8px) scale(1.02);
-    box-shadow: 0 0 32px rgba(0,255,255,0.3);
+    transform: translateY(-7px) scale(1.025);
+    box-shadow: 0 0 38px rgba(0,255,255,0.33);
     filter: brightness(1.22);
 }
-.item img { width: 100%; display: block; }
 
-/* Shimmer */
+.item img {
+    width: 100%;
+    display: block;
+}
+
+/* Loading shimmer placeholder */
 .shimmer {
-    height: 340px;
-    background: linear-gradient(90deg, #1b1b1b, #333, #1b1b1b);
-    background-size:200%;
-    animation: shimmerMove 1.5s infinite;
-}
-@keyframes shimmerMove {
-    0%{background-position:-200% 0;}
-    100%{background-position:200% 0;}
+    height: 350px;
+    background: linear-gradient(90deg, #1c1c1c, #333, #1c1c1c);
+    background-size: 200%;
+    animation: shimmerMove 1.4s infinite;
 }
 
-/* Viewer */
+@keyframes shimmerMove {
+    from { background-position: -200% 0; }
+    to   { background-position: 200% 0; }
+}
+
+/* --------------------------------------------------
+   FULLSCREEN IMAGE VIEWER
+-------------------------------------------------- */
 #viewer {
     display: none;
     position: fixed;
     inset: 0;
-    background: rgba(0,0,0,.95);
-    justify-content:center;
-    align-items:center;
-    z-index:999999;
-    backdrop-filter: blur(10px);
+    background: rgba(0,0,0,0.95);
+    justify-content: center;
+    align-items: center;
+    z-index: 999999;
+    backdrop-filter: blur(12px);
 }
+
 #viewer img {
     max-width: 92%;
     max-height: 92%;
-    border-radius: 20px;
-    box-shadow: 0 0 40px rgba(0,255,255,0.3);
+    border-radius: 22px;
+    box-shadow: 0 0 42px rgba(0,255,255,0.3);
+    transition: transform .25s ease;
 }
+
 #viewerClose {
     position: absolute;
-    top: 20px;
-    right: 40px;
-    font-size: 55px;
+    top: 25px;
+    right: 42px;
+    font-size: 60px;
     cursor: pointer;
+    user-select: none;
 }
 
-/* Footer */
+/* --------------------------------------------------
+   FOOTER
+-------------------------------------------------- */
 footer {
-    text-align:center;
-    padding:50px 0 60px;
-    font-size:18px;
-    opacity:.8;
+    text-align: center;
+    padding: 55px 0 65px;
+    font-size: 18px;
+    opacity: .8;
 }
-footer a { color:#00eaff; text-decoration:none; font-weight:bold; }
-footer a:hover { color:#ff00ff; }
 
-/* First-visit Refresh Notice */
+footer a {
+    color: #00eaff;
+    text-decoration: none;
+    font-weight: bold;
+    transition: .3s;
+}
+
+footer a:hover {
+    color: #ff00ff;
+}
+
+/* --------------------------------------------------
+   REFRESH NOTICE (UPGRADED)
+-------------------------------------------------- */
 #loadingNotice {
     position: fixed;
-    bottom: 25px;
+    bottom: 26px;
     left: 50%;
     transform: translateX(-50%);
     background: rgba(0,0,0,0.55);
     border: 1px solid rgba(0,255,255,0.35);
-    padding: 16px 24px;
+    padding: 16px 26px;
     border-radius: 14px;
     font-size: 17px;
-    font-weight: 500;
     color: #bafaff;
     backdrop-filter: blur(12px);
-    box-shadow: 0 0 25px rgba(0,255,255,0.25);
+    box-shadow: 0 0 26px rgba(0,255,255,0.25);
     opacity: 0;
     pointer-events: none;
-    transition: opacity .5s ease;
+    transition: opacity .45s ease;
     z-index: 999999;
 }
-#loadingNotice.show { opacity: 1; pointer-events:auto; }
+
+#loadingNotice span {
+    animation: pulse 2.1s infinite ease-in-out;
+}
+
+@keyframes pulse {
+    0% { opacity: .7; }
+    50% { opacity: 1; }
+    100% { opacity: .7; }
+}
+
+#loadingNotice em {
+    color: #00eaff;
+    text-decoration: underline;
+}
+
+#loadingNotice.show {
+    opacity: 1;
+    pointer-events: auto;
+}
+
 </style>
 </head>
+
 <body>
 
 <div id="particles"></div>
-
 <header>Cornelius Aurelius — AI ART</header>
 
 <div class="grid" id="gallery"></div>
 
+<!-- Image Viewer -->
 <div id="viewer">
     <div id="viewerClose">&times;</div>
     <img id="viewerImg">
 </div>
 
+<!-- Refresh Notice -->
 <div id="loadingNotice">
     <span>Loading artwork… please wait</span><br>
     <small>If this takes too long, <em>tap to refresh</em>.</small>
 </div>
 
 <footer>
-Created by <a href="https://www.instagram.com/cornelius_aurelius_/" target="_blank">Cornelius Aurelius</a>
+    Created by <a href="https://www.instagram.com/cornelius_aurelius_/" target="_blank">Cornelius Aurelius</a>
 </footer>
 
+
 <script>
-/* --------------------------------------------------
-   SHOW REFRESH NOTICE IMMEDIATELY
--------------------------------------------------- */
-const notice = document.getElementById("loadingNotice");
-notice.classList.add("show");
-notice.onclick = () => location.reload();
 
 /* --------------------------------------------------
-   SUPER FAST BATCH LOADER – FIXED
+   FIRST VISIT LOGIC
+-------------------------------------------------- */
+const notice = document.getElementById("loadingNotice");
+const hasVisited = localStorage.getItem("visitedAIArt");
+
+if (!hasVisited) {
+    let shown = false;
+
+    setTimeout(() => {
+        notice.classList.add("show");
+        shown = true;
+    }, 3000);
+
+    notice.onclick = () => {
+        if (shown) location.reload();
+    };
+
+    window.addEventListener("beforeunload", () => {
+        localStorage.setItem("visitedAIArt", "true");
+    });
+
+} else {
+    notice.remove();
+}
+
+/* --------------------------------------------------
+   IMAGE LOAD COUNTER FOR AUTO-HIDE
+-------------------------------------------------- */
+let loaded = 0;
+
+function hideNoticeCheck() {
+    loaded++;
+    if (loaded > 10) {
+        notice.classList.remove("show");
+    }
+}
+
+/* --------------------------------------------------
+   BUILD GALLERY — USE EXACT FILENAMES
 -------------------------------------------------- */
 const gallery = document.getElementById("gallery");
 const baseURL = "https://raw.githubusercontent.com/Cornelius-Aurelius/AI-ART/main/";
 
-let loaded = 0;
-let pointer = 1;
-const MAX = 253;
+const images = [];
+for (let i = 1; i <= 253; i++) images.push(`${i}.png`);
 
-/* Load 20 images at a time */
-function loadBatch() {
-    const batchSize = 20;
+images.forEach(file => {
+    const wrap = document.createElement("div");
+    wrap.className = "item";
 
-    for (let i = 0; i < batchSize && pointer <= MAX; i++, pointer++) {
-        const wrap = document.createElement("div");
-        wrap.className = "item";
+    const shimmer = document.createElement("div");
+    shimmer.className = "shimmer";
 
-        const shim = document.createElement("div");
-        shim.className = "shimmer";
+    const img = document.createElement("img");
+    img.style.display = "none";
+    img.src = baseURL + file;
+    img.loading = "lazy";
 
-        const img = document.createElement("img");
-        img.style.display = "none";
-        img.loading = "lazy";
-        img.src = `${baseURL}${pointer}.png`;
+    img.onload = () => {
+        shimmer.remove();
+        img.style.display = "block";
+        hideNoticeCheck();
+    };
 
-        img.onload = () => {
-            shim.remove();
-            img.style.display = "block";
-            loaded++;
+    img.onclick = () => openViewer(baseURL + file);
 
-            if (loaded > 15) {
-                notice.classList.remove("show");
-            }
-        };
-
-        img.onerror = () => {
-            shim.remove(); // remove shimmer even if error
-        };
-
-        img.onclick = () => openViewer(img.src);
-
-        wrap.appendChild(shim);
-        wrap.appendChild(img);
-        gallery.appendChild(wrap);
-    }
-
-    if (pointer <= MAX) requestIdleCallback(loadBatch);
-}
-
-loadBatch();
+    wrap.appendChild(shimmer);
+    wrap.appendChild(img);
+    gallery.appendChild(wrap);
+});
 
 /* --------------------------------------------------
-    VIEWER
+   FULLSCREEN VIEWER
 -------------------------------------------------- */
 const viewer = document.getElementById("viewer");
 const viewerImg = document.getElementById("viewerImg");
-document.getElementById("viewerClose").onclick = () => viewer.style.display="none";
 
-function openViewer(src){
+document.getElementById("viewerClose").onclick = () =>
+    viewer.style.display = "none";
+
+function openViewer(src) {
     viewerImg.src = src;
-    viewer.style.display="flex";
+    viewer.style.display = "flex";
 }
 
-viewer.onclick = e => { if (e.target === viewer) viewer.style.display="none"; };
+viewer.onclick = (e) => {
+    if (e.target === viewer) viewer.style.display = "none";
+};
+
 </script>
 
 </body>
