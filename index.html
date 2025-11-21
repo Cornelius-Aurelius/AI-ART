@@ -12,9 +12,7 @@
 
 <style>
 
-/* --------------------------------------------------
-   GLOBAL
--------------------------------------------------- */
+/* GLOBAL */
 body {
     margin: 0;
     background: #02040a;
@@ -23,9 +21,7 @@ body {
     overflow-x: hidden;
 }
 
-/* --------------------------------------------------
-   PARALLAX HOLOGRAPHIC BACKGROUND
--------------------------------------------------- */
+/* HOLOGRAPHIC BACKGROUND */
 body::before {
     content: "";
     position: fixed;
@@ -35,33 +31,29 @@ body::before {
       radial-gradient(circle at 70% 80%, rgba(255,0,150,0.28), transparent),
       radial-gradient(circle at 20% 70%, rgba(0,255,200,0.22), transparent);
     filter: blur(120px);
-    animation: bg-move 25s ease-in-out infinite alternate;
+    animation: bgMove 25s ease-in-out infinite alternate;
     z-index: -3;
 }
-
-@keyframes bg-move {
-    0%   { transform: translateY(0) scale(1); }
+@keyframes bgMove {
+    0% { transform: translateY(0) scale(1); }
     100% { transform: translateY(-50px) scale(1.18); }
 }
 
 #particles {
     position: fixed;
     inset: 0;
-    background-image: url("https://raw.githubusercontent.com/Cornelius-Aurelius/AI-ART/main/particles.png");
+    background-image: url("./particles.png");
     opacity: .22;
     animation: drift 85s linear infinite;
     pointer-events: none;
     z-index: -2;
 }
-
 @keyframes drift {
     from { background-position: 0 0; }
     to   { background-position: 2600px 2000px; }
 }
 
-/* --------------------------------------------------
-   NAVBAR
--------------------------------------------------- */
+/* NAVBAR */
 nav {
     position: fixed;
     top: 0;
@@ -76,14 +68,12 @@ nav {
     padding: 0 24px;
     z-index: 9999;
 }
-
 nav .title {
     font-size: 21px;
     font-weight: 900;
     color: #00eaff;
     letter-spacing: 2px;
 }
-
 nav a {
     color: #00eaff;
     font-weight: bold;
@@ -91,14 +81,11 @@ nav a {
     text-decoration: none;
     transition: .25s;
 }
-
 nav a:hover {
     color: #ff00ff;
 }
 
-/* --------------------------------------------------
-   FLOATING HOME BUTTON
--------------------------------------------------- */
+/* FLOATING HOME BUTTON */
 #homeBtn {
     position: fixed;
     bottom: 26px;
@@ -113,22 +100,18 @@ nav a:hover {
     z-index: 9999;
     transition: .25s;
 }
-
 #homeBtn:hover {
     background: rgba(0,0,0,0.75);
     color: #ff00ff;
 }
 
-/* --------------------------------------------------
-   CINEMATIC HEADER
--------------------------------------------------- */
+/* HEADER */
 header {
     text-align: center;
     padding: 160px 20px 60px;
     opacity: 0;
     animation: fadeUp 1.3s ease forwards;
 }
-
 @keyframes fadeUp {
     from { opacity: 0; transform: translateY(30px); }
     to   { opacity: 1; transform: translateY(0); }
@@ -143,22 +126,18 @@ header .line1 {
     -webkit-text-fill-color: transparent;
     animation: shine 9s linear infinite;
 }
-
 header .line2 {
     margin-top: -6px;
     font-size: clamp(22px, 6vw, 34px);
     color: #00eaff;
     letter-spacing: 6px;
 }
-
 @keyframes shine {
     0% { background-position: 0% 50%; }
     100% { background-position: 500% 50%; }
 }
 
-/* --------------------------------------------------
-   PROGRESS BAR
--------------------------------------------------- */
+/* PROGRESS BAR */
 #progressBar {
     position: fixed;
     top: 72px;
@@ -170,15 +149,12 @@ header .line2 {
     z-index: 9999;
 }
 
-/* --------------------------------------------------
-   GALLERY — INSTAGRAM REELS 9:16
--------------------------------------------------- */
+/* GALLERY */
 .grid {
     column-count: 4;
     column-gap: 30px;
     padding: 0 32px 40px;
 }
-
 @media(max-width:1400px) { .grid { column-count: 3; } }
 @media(max-width:1000px) { .grid { column-count: 2; padding: 0 20px; } }
 @media(max-width:600px)  { .grid { column-count: 1; padding: 0 12px; } }
@@ -189,7 +165,7 @@ header .line2 {
     transition: .3s ease;
 }
 
-/* Neon holographic frame */
+/* Neon 9:16 Reel Frames */
 .frame {
     width: 100%;
     aspect-ratio: 9/16;
@@ -203,13 +179,12 @@ header .line2 {
     align-items: center;
     transition: .3s;
 }
-
 .item:hover .frame {
     transform: translateY(-6px) scale(1.03);
     box-shadow: 0 0 35px rgba(0,255,255,0.55);
 }
 
-/* Full image inside 9:16 frame (no cropping) */
+/* Fit images perfectly (no cropping) */
 .frame img {
     max-width: 100%;
     max-height: 100%;
@@ -217,9 +192,7 @@ header .line2 {
     border-radius: 20px;
 }
 
-/* --------------------------------------------------
-   VIEWER — CINEMA MODE
--------------------------------------------------- */
+/* VIEWER */
 #viewer {
     display: none;
     position: fixed;
@@ -230,15 +203,12 @@ header .line2 {
     align-items: center;
     z-index: 10000;
 }
-
 #viewer img {
     max-width: 92%;
     max-height: 92%;
     border-radius: 22px;
     box-shadow: 0 0 40px rgba(0,255,255,0.35);
-    transition: .25s;
 }
-
 #viewerClose {
     position: absolute;
     top: 26px;
@@ -246,13 +216,10 @@ header .line2 {
     font-size: 64px;
     cursor: pointer;
     color: #00eaff;
-    transition: .25s;
 }
-#viewerClose:hover {
-    color: #ff00ff;
-}
+#viewerClose:hover { color: #ff00ff; }
 
-/* NAV arrows */
+/* Viewer arrows */
 .navArrow {
     position: absolute;
     top: 50%;
@@ -260,24 +227,19 @@ header .line2 {
     color: #00eaff;
     cursor: pointer;
     transform: translateY(-50%);
-    transition: .25s;
     user-select: none;
 }
 .navArrow:hover { color: #ff00ff; }
-
 #leftArrow  { left: 40px; }
 #rightArrow { right: 40px; }
 
-/* --------------------------------------------------
-   FOOTER
--------------------------------------------------- */
+/* FOOTER */
 footer {
     text-align: center;
     padding: 60px 0;
     opacity: .85;
     line-height: 1.7;
 }
-
 footer a {
     color: #00eaff;
     text-decoration: none;
@@ -314,7 +276,7 @@ footer a:hover { color: #ff00ff; }
 
 <div class="grid" id="gallery"></div>
 
-<!-- CINEMA VIEWER -->
+<!-- Viewer -->
 <div id="viewer">
     <div id="viewerClose">&times;</div>
     <div id="leftArrow" class="navArrow">&#10094;</div>
@@ -333,25 +295,22 @@ footer a:hover { color: #ff00ff; }
 
 <script>
 
-/* --------------------------------------------------
-   PROGRESS BAR
--------------------------------------------------- */
+/* PROGRESS BAR LOGIC */
 let progress = 0;
 const bar = document.getElementById("progressBar");
 function updateProgress() {
     progress += 100 / 253;
-    if (progress > 100) progress = 100;
+    if (progress>100) progress=100;
     bar.style.width = progress + "%";
 }
 
-/* --------------------------------------------------
-   BUILD GALLERY
--------------------------------------------------- */
+/* GALLERY BUILD — CORRECTED PATH (./) */
 const gallery = document.getElementById("gallery");
-const baseURL = "https://raw.githubusercontent.com/Cornelius-Aurelius/AI-ART/main/";
+const baseURL = "./";   // FIXED!!
+
 let currentIndex = 0;
 
-for (let i = 1; i <= 253; i++) {
+for (let i=1; i<=253; i++) {
     const item = document.createElement("div");
     item.className = "item";
 
@@ -359,7 +318,7 @@ for (let i = 1; i <= 253; i++) {
     frame.className = "frame";
 
     const img = document.createElement("img");
-    img.src = baseURL + i + ".png";
+    img.src = `${baseURL}${i}.png`;
     img.loading = "lazy";
 
     img.onload = updateProgress;
@@ -370,47 +329,44 @@ for (let i = 1; i <= 253; i++) {
     gallery.appendChild(item);
 }
 
-/* --------------------------------------------------
-   CINEMA VIEWER (ARROWS + SWIPE)
--------------------------------------------------- */
+/* VIEWER LOGIC */
 const viewer = document.getElementById("viewer");
 const viewerImg = document.getElementById("viewerImg");
 
 function openViewer(i) {
     currentIndex = i;
-    viewerImg.src = baseURL + i + ".png";
+    viewerImg.src = `${baseURL}${i}.png`;
     viewer.style.display = "flex";
 }
 
 document.getElementById("viewerClose").onclick = () =>
     viewer.style.display = "none";
 
-/* Arrow Navigation */
+/* ARROWS */
 document.getElementById("leftArrow").onclick = () => {
-    currentIndex = currentIndex <= 1 ? 253 : currentIndex - 1;
+    currentIndex = currentIndex<=1 ? 253 : currentIndex-1;
     openViewer(currentIndex);
 };
 document.getElementById("rightArrow").onclick = () => {
-    currentIndex = currentIndex >= 253 ? 1 : currentIndex + 1;
+    currentIndex = currentIndex>=253 ? 1 : currentIndex+1;
     openViewer(currentIndex);
 };
 
-/* Keyboard Navigation */
-document.addEventListener("keydown", e => {
-    if (viewer.style.display !== "flex") return;
-
-    if (e.key === "ArrowLeft")  document.getElementById("leftArrow").click();
-    if (e.key === "ArrowRight") document.getElementById("rightArrow").click();
-    if (e.key === "Escape")     viewer.style.display = "none";
+/* KEYBOARD */
+document.addEventListener("keydown", e=>{
+    if (viewer.style.display!=="flex") return;
+    if (e.key==="ArrowLeft")  document.getElementById("leftArrow").click();
+    if (e.key==="ArrowRight") document.getElementById("rightArrow").click();
+    if (e.key==="Escape")     viewer.style.display="none";
 });
 
-/* Swipe Navigation (Mobile) */
+/* SWIPE */
 let startX = 0;
-viewer.addEventListener("touchstart", e => startX = e.touches[0].clientX);
+viewer.addEventListener("touchstart", e => startX=e.touches[0].clientX);
 viewer.addEventListener("touchend", e => {
     let diff = e.changedTouches[0].clientX - startX;
-    if (diff > 50) document.getElementById("leftArrow").click();
-    if (diff < -50) document.getElementById("rightArrow").click();
+    if (diff>50) document.getElementById("leftArrow").click();
+    if (diff<-50) document.getElementById("rightArrow").click();
 });
 
 </script>
