@@ -206,4 +206,213 @@ header .line2 {
 
 .item:hover .frame {
     transform: translateY(-6px) scale(1.03);
-    box-shadow
+    box-shadow: 0 0 35px rgba(0,255,255,0.55);
+}
+
+/* Full image inside 9:16 frame (no cropping) */
+.frame img {
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: contain;
+    border-radius: 20px;
+}
+
+/* --------------------------------------------------
+   VIEWER — CINEMA MODE
+-------------------------------------------------- */
+#viewer {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.92);
+    backdrop-filter: blur(14px);
+    justify-content: center;
+    align-items: center;
+    z-index: 10000;
+}
+
+#viewer img {
+    max-width: 92%;
+    max-height: 92%;
+    border-radius: 22px;
+    box-shadow: 0 0 40px rgba(0,255,255,0.35);
+    transition: .25s;
+}
+
+#viewerClose {
+    position: absolute;
+    top: 26px;
+    right: 40px;
+    font-size: 64px;
+    cursor: pointer;
+    color: #00eaff;
+    transition: .25s;
+}
+#viewerClose:hover {
+    color: #ff00ff;
+}
+
+/* NAV arrows */
+.navArrow {
+    position: absolute;
+    top: 50%;
+    font-size: 70px;
+    color: #00eaff;
+    cursor: pointer;
+    transform: translateY(-50%);
+    transition: .25s;
+    user-select: none;
+}
+.navArrow:hover { color: #ff00ff; }
+
+#leftArrow  { left: 40px; }
+#rightArrow { right: 40px; }
+
+/* --------------------------------------------------
+   FOOTER
+-------------------------------------------------- */
+footer {
+    text-align: center;
+    padding: 60px 0;
+    opacity: .85;
+    line-height: 1.7;
+}
+
+footer a {
+    color: #00eaff;
+    text-decoration: none;
+    font-weight: bold;
+}
+footer a:hover { color: #ff00ff; }
+
+</style>
+</head>
+
+<body>
+
+<div id="particles"></div>
+
+<nav>
+    <div class="title">CORNELIUS AURELIUS</div>
+    <div>
+        <a href="https://corneliusaurelius.com/" target="_blank">HOME</a>
+        <a href="https://github.com/Cornelius-Aurelius" target="_blank">GITHUB</a>
+        <a href="https://www.instagram.com/cornelius_aurelius_/" target="_blank">INSTAGRAM</a>
+    </div>
+</nav>
+
+<div id="progressBar"></div>
+
+<div id="homeBtn" onclick="location.href='https://corneliusaurelius.com/'">
+    ⬅ MAIN HOME
+</div>
+
+<header>
+    <div class="line1">CORNELIUS AURELIUS</div>
+    <div class="line2">A.I ART</div>
+</header>
+
+<div class="grid" id="gallery"></div>
+
+<!-- CINEMA VIEWER -->
+<div id="viewer">
+    <div id="viewerClose">&times;</div>
+    <div id="leftArrow" class="navArrow">&#10094;</div>
+    <img id="viewerImg">
+    <div id="rightArrow" class="navArrow">&#10095;</div>
+</div>
+
+<footer>
+    <a href="https://corneliusaurelius.com/" target="_blank">Main Homepage</a> •
+    <a href="https://medium.com/@138licensing" target="_blank">Medium</a> •
+    <a href="mailto:138licensing@gmail.com">138licensing@gmail.com</a> •
+    <a href="https://zenodo.org/records/17362534" target="_blank">Zenodo</a> •
+    <a href="https://www.instagram.com/cornelius_aurelius_/" target="_blank">Instagram</a> •
+    <a href="https://www.linkedin.com/in/cornelius-aurelius-404805325/recent-activity/all/" target="_blank">LinkedIn</a>
+</footer>
+
+<script>
+
+/* --------------------------------------------------
+   PROGRESS BAR
+-------------------------------------------------- */
+let progress = 0;
+const bar = document.getElementById("progressBar");
+function updateProgress() {
+    progress += 100 / 253;
+    if (progress > 100) progress = 100;
+    bar.style.width = progress + "%";
+}
+
+/* --------------------------------------------------
+   BUILD GALLERY
+-------------------------------------------------- */
+const gallery = document.getElementById("gallery");
+const baseURL = "https://raw.githubusercontent.com/Cornelius-Aurelius/AI-ART/main/";
+let currentIndex = 0;
+
+for (let i = 1; i <= 253; i++) {
+    const item = document.createElement("div");
+    item.className = "item";
+
+    const frame = document.createElement("div");
+    frame.className = "frame";
+
+    const img = document.createElement("img");
+    img.src = baseURL + i + ".png";
+    img.loading = "lazy";
+
+    img.onload = updateProgress;
+    img.onclick = () => openViewer(i);
+
+    frame.appendChild(img);
+    item.appendChild(frame);
+    gallery.appendChild(item);
+}
+
+/* --------------------------------------------------
+   CINEMA VIEWER (ARROWS + SWIPE)
+-------------------------------------------------- */
+const viewer = document.getElementById("viewer");
+const viewerImg = document.getElementById("viewerImg");
+
+function openViewer(i) {
+    currentIndex = i;
+    viewerImg.src = baseURL + i + ".png";
+    viewer.style.display = "flex";
+}
+
+document.getElementById("viewerClose").onclick = () =>
+    viewer.style.display = "none";
+
+/* Arrow Navigation */
+document.getElementById("leftArrow").onclick = () => {
+    currentIndex = currentIndex <= 1 ? 253 : currentIndex - 1;
+    openViewer(currentIndex);
+};
+document.getElementById("rightArrow").onclick = () => {
+    currentIndex = currentIndex >= 253 ? 1 : currentIndex + 1;
+    openViewer(currentIndex);
+};
+
+/* Keyboard Navigation */
+document.addEventListener("keydown", e => {
+    if (viewer.style.display !== "flex") return;
+
+    if (e.key === "ArrowLeft")  document.getElementById("leftArrow").click();
+    if (e.key === "ArrowRight") document.getElementById("rightArrow").click();
+    if (e.key === "Escape")     viewer.style.display = "none";
+});
+
+/* Swipe Navigation (Mobile) */
+let startX = 0;
+viewer.addEventListener("touchstart", e => startX = e.touches[0].clientX);
+viewer.addEventListener("touchend", e => {
+    let diff = e.changedTouches[0].clientX - startX;
+    if (diff > 50) document.getElementById("leftArrow").click();
+    if (diff < -50) document.getElementById("rightArrow").click();
+});
+
+</script>
+</body>
+</html>
