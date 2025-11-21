@@ -3,7 +3,28 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Cornelius Aurelius — AI ART</title>
+
+<title>Cornelius Aurelius — AI ART Gallery</title>
+
+<!-- --------------------------------------------------
+     SEO + METADATA
+-------------------------------------------------- -->
+<meta name="description" content="Official AI Art Gallery of Cornelius Aurelius — The Omniscientrix. Explore 250+ holographic, neon, hyper-dimensional artworks.">
+<meta name="keywords" content="Cornelius Aurelius, AI Art, Omniscientrix, digital art, holographic art, neon art, futuristic art, Cornelius AI">
+<meta name="author" content="Cornelius Aurelius">
+
+<!-- Open Graph -->
+<meta property="og:title" content="Cornelius Aurelius — AI ART Gallery">
+<meta property="og:description" content="Experience the official AI art collection of Cornelius Aurelius.">
+<meta property="og:image" content="https://corneliusaurelius.com/preview.jpg">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://cornelius-aurelius.github.io/AI-ART/">
+
+<!-- Twitter Card -->
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Cornelius Aurelius — AI ART Gallery">
+<meta name="twitter:description" content="Experience the official AI art collection of Cornelius Aurelius.">
+<meta name="twitter:image" content="https://corneliusaurelius.com/preview.jpg">
 
 <style>
 
@@ -37,7 +58,7 @@ body::before {
     100% { transform: scale(1.13) translate(0, -50px); }
 }
 
-/* Moving particle layer */
+/* Particle layer */
 #particles {
     position: fixed;
     inset: 0;
@@ -54,12 +75,12 @@ body::before {
 }
 
 /* --------------------------------------------------
-   HEADER TITLE
+   RESPONSIVE TITLE
 -------------------------------------------------- */
 header {
     text-align: center;
     padding: 70px 20px 40px;
-    font-size: 64px;
+    font-size: clamp(32px, 9vw, 64px);
     font-weight: 900;
     letter-spacing: 4px;
     text-transform: uppercase;
@@ -87,7 +108,7 @@ header {
 @media(max-width:1600px) { .grid { column-count: 4; } }
 @media(max-width:1200px) { .grid { column-count: 3; } }
 @media(max-width:800px)  { .grid { column-count: 2; } }
-@media(max-width:500px)  { .grid { column-count: 1; } }
+@media(max-width:550px)  { .grid { column-count: 1; padding: 15px; } }
 
 .item {
     break-inside: avoid;
@@ -112,7 +133,7 @@ header {
     display: block;
 }
 
-/* Loading shimmer placeholder */
+/* Shimmer Loading */
 .shimmer {
     height: 350px;
     background: linear-gradient(90deg, #1c1c1c, #333, #1c1c1c);
@@ -126,7 +147,7 @@ header {
 }
 
 /* --------------------------------------------------
-   FULLSCREEN IMAGE VIEWER
+   FULLSCREEN VIEWER
 -------------------------------------------------- */
 #viewer {
     display: none;
@@ -144,9 +165,9 @@ header {
     max-height: 92%;
     border-radius: 22px;
     box-shadow: 0 0 42px rgba(0,255,255,0.3);
-    transition: transform .25s ease;
 }
 
+/* Close button */
 #viewerClose {
     position: absolute;
     top: 25px;
@@ -157,13 +178,14 @@ header {
 }
 
 /* --------------------------------------------------
-   FOOTER
+   FOOTER — UPDATED LINKS
 -------------------------------------------------- */
 footer {
     text-align: center;
     padding: 55px 0 65px;
     font-size: 18px;
     opacity: .8;
+    line-height: 1.7;
 }
 
 footer a {
@@ -178,7 +200,7 @@ footer a:hover {
 }
 
 /* --------------------------------------------------
-   REFRESH NOTICE (UPGRADED)
+   REFRESH NOTICE
 -------------------------------------------------- */
 #loadingNotice {
     position: fixed;
@@ -199,21 +221,6 @@ footer a:hover {
     z-index: 999999;
 }
 
-#loadingNotice span {
-    animation: pulse 2.1s infinite ease-in-out;
-}
-
-@keyframes pulse {
-    0% { opacity: .7; }
-    50% { opacity: 1; }
-    100% { opacity: .7; }
-}
-
-#loadingNotice em {
-    color: #00eaff;
-    text-decoration: underline;
-}
-
 #loadingNotice.show {
     opacity: 1;
     pointer-events: auto;
@@ -225,11 +232,12 @@ footer a:hover {
 <body>
 
 <div id="particles"></div>
+
 <header>Cornelius Aurelius — AI ART</header>
 
 <div class="grid" id="gallery"></div>
 
-<!-- Image Viewer -->
+<!-- Viewer -->
 <div id="viewer">
     <div id="viewerClose">&times;</div>
     <img id="viewerImg">
@@ -241,13 +249,19 @@ footer a:hover {
     <small>If this takes too long, <em>tap to refresh</em>.</small>
 </div>
 
+<!-- FOOTER with all links -->
 <footer>
-    Created by <a href="https://www.instagram.com/cornelius_aurelius_/" target="_blank">Cornelius Aurelius</a>
+
+    <a href="https://corneliusaurelius.com/" target="_blank">Main Homepage</a> •
+    <a href="https://medium.com/@138licensing" target="_blank">Medium</a> •
+    <a href="mailto:138licensing@gmail.com">138licensing@gmail.com</a> •
+    <a href="https://zenodo.org/records/17362534" target="_blank">Zenodo</a> •
+    <a href="https://www.instagram.com/cornelius_aurelius_/" target="_blank">Instagram</a> •
+    <a href="https://www.linkedin.com/in/cornelius-aurelius-404805325/recent-activity/all/" target="_blank">LinkedIn</a>
+
 </footer>
 
-
 <script>
-
 /* --------------------------------------------------
    FIRST VISIT LOGIC
 -------------------------------------------------- */
@@ -256,43 +270,30 @@ const hasVisited = localStorage.getItem("visitedAIArt");
 
 if (!hasVisited) {
     let shown = false;
+    setTimeout(() => { notice.classList.add("show"); shown = true; }, 3000);
 
-    setTimeout(() => {
-        notice.classList.add("show");
-        shown = true;
-    }, 3000);
-
-    notice.onclick = () => {
-        if (shown) location.reload();
-    };
+    notice.onclick = () => { if (shown) location.reload(); };
 
     window.addEventListener("beforeunload", () => {
         localStorage.setItem("visitedAIArt", "true");
     });
-
 } else {
     notice.remove();
 }
 
 /* --------------------------------------------------
-   IMAGE LOAD COUNTER FOR AUTO-HIDE
+   IMAGE LOADING LOGIC
 -------------------------------------------------- */
 let loaded = 0;
-
 function hideNoticeCheck() {
     loaded++;
-    if (loaded > 10) {
-        notice.classList.remove("show");
-    }
+    if (loaded > 10) notice.classList.remove("show");
 }
 
-/* --------------------------------------------------
-   BUILD GALLERY — USE EXACT FILENAMES
--------------------------------------------------- */
 const gallery = document.getElementById("gallery");
 const baseURL = "https://raw.githubusercontent.com/Cornelius-Aurelius/AI-ART/main/";
-
 const images = [];
+
 for (let i = 1; i <= 253; i++) images.push(`${i}.png`);
 
 images.forEach(file => {
@@ -337,7 +338,6 @@ function openViewer(src) {
 viewer.onclick = (e) => {
     if (e.target === viewer) viewer.style.display = "none";
 };
-
 </script>
 
 </body>
