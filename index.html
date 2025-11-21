@@ -11,15 +11,6 @@
 <meta name="keywords" content="Cornelius Aurelius, AI Art, A.I ART, futuristic art, neon art, holographic art, Omniscientrix">
 <meta name="author" content="Cornelius Aurelius">
 
-<!-- Open Graph -->
-<meta property="og:title" content="Cornelius Aurelius — A.I ART">
-<meta property="og:description" content="Experience the official AI Art collection of Cornelius Aurelius.">
-<meta property="og:image" content="https://corneliusaurelius.com/preview.jpg">
-<meta property="og:type" content="website">
-
-<!-- Twitter -->
-<meta name="twitter:card" content="summary_large_image">
-
 <style>
 
 /* GLOBAL */
@@ -31,7 +22,7 @@ body {
     overflow-x: hidden;
 }
 
-/* Nebula Background */
+/* Nebula */
 body::before {
     content: "";
     position: fixed;
@@ -44,10 +35,9 @@ body::before {
     animation: nebula 24s ease-in-out infinite alternate;
     z-index: -3;
 }
-
 @keyframes nebula {
     0% { transform: scale(1); }
-    100% { transform: scale(1.13) translateY(-30px); }
+    100% { transform: scale(1.15) translateY(-40px); }
 }
 
 /* Particles */
@@ -57,47 +47,40 @@ body::before {
     background-image: url("https://raw.githubusercontent.com/Cornelius-Aurelius/AI-ART/main/particles.png");
     opacity: .25;
     animation: drift 85s linear infinite;
-    pointer-events: none;
     z-index: -2;
 }
-
 @keyframes drift {
     from { background-position: 0 0; }
     to   { background-position: 2600px 2000px; }
 }
 
-/* FLOATING NAVBAR */
+/* NAVBAR */
 nav {
     position: fixed;
     top: 0;
     width: 100%;
     height: 70px;
-    backdrop-filter: blur(12px);
+    backdrop-filter: blur(14px);
     background: rgba(0,0,0,0.55);
-    border-bottom: 1px solid rgba(0,255,255,0.15);
+    border-bottom: 1px solid rgba(0,255,255,0.18);
     display: flex;
     align-items: center;
     justify-content: space-between;
     padding: 0 22px;
     z-index: 9999;
-    box-shadow: 0 0 22px rgba(0,255,255,0.15);
 }
-
 nav .title {
     font-size: 20px;
     font-weight: 900;
     letter-spacing: 2px;
     color: #00eaff;
 }
-
 nav a {
     color: #00eaff;
     margin-left: 18px;
     text-decoration: none;
     font-weight: bold;
-    transition: .3s;
 }
-
 nav a:hover {
     color: #ff00ff;
 }
@@ -105,50 +88,44 @@ nav a:hover {
 /* FLOATING HOME BUTTON */
 #homeBtn {
     position: fixed;
-    bottom: 24px;
-    right: 24px;
+    bottom: 26px;
+    right: 26px;
     background: rgba(0,0,0,0.55);
     border: 1px solid rgba(0,255,255,0.35);
     padding: 14px 20px;
-    border-radius: 12px;
+    border-radius: 14px;
     color: #00eaff;
     font-size: 16px;
     cursor: pointer;
     z-index: 9999;
-    box-shadow: 0 0 18px rgba(0,255,255,0.3);
-    transition: .3s;
 }
-
 #homeBtn:hover {
     background: rgba(0,0,0,0.75);
     color: #ff00ff;
 }
 
-/* HEADER (STACKED TITLE) */
+/* HEADER */
 header {
     text-align: center;
-    padding: 140px 20px 50px;
-    text-transform: uppercase;
-    font-weight: 900;
+    padding: 150px 20px 50px;
 }
-
 header .line1 {
     font-size: clamp(42px, 9vw, 74px);
+    font-weight: 900;
+    text-transform: uppercase;
     background: linear-gradient(90deg, #ff00ff, #00eaff, #b3ff00, #ff6a00, #ff00ff);
-    background-size: 450%;
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
+    background-size: 450%;
     animation: shine 9s linear infinite;
     letter-spacing: 4px;
 }
-
 header .line2 {
-    margin-top: -10px;
-    font-size: clamp(22px, 6vw, 36px);
+    font-size: clamp(22px, 6vw, 34px);
     color: #00eaff;
+    margin-top: -6px;
     letter-spacing: 6px;
 }
-
 @keyframes shine {
     0% { background-position: 0% 50%; }
     100% { background-position: 450% 50%; }
@@ -163,50 +140,47 @@ header .line2 {
     background: #00eaff;
     width: 0%;
     z-index: 9999;
-    transition: width .2s;
 }
 
-/* GALLERY */
+/* GALLERY — INSTAGRAM REELS 9:16 */
 .grid {
-    column-count: 5;
+    column-count: 4;
     column-gap: 28px;
-    padding: 30px;
-    padding-top: 0;
+    padding: 20px 30px;
 }
-
-@media(max-width:1600px) { .grid { column-count: 4; } }
-@media(max-width:1200px) { .grid { column-count: 3; } }
-@media(max-width:800px)  { .grid { column-count: 2; } }
-@media(max-width:550px)  { .grid { column-count: 1; padding: 12px; } }
+@media(max-width:1400px) { .grid { column-count: 3; } }
+@media(max-width:1000px) { .grid { column-count: 2; } }
+@media(max-width:600px)  { .grid { column-count: 1; padding: 12px; } }
 
 .item {
     break-inside: avoid;
     margin-bottom: 28px;
-    border-radius: 22px;
+    border-radius: 26px;
     overflow: hidden;
-    background: rgba(255,255,255,0.05);
+    background: rgba(255,255,255,0.03);
     border: 2px solid rgba(0,255,255,0.25);
     box-shadow: 0 0 22px rgba(0,255,255,0.25);
-    cursor: pointer;
-    transition: .3s ease;
+    transition: .3s;
 }
 
-.item:hover {
-    transform: translateY(-7px) scale(1.03);
-    box-shadow: 0 0 38px rgba(0,255,255,0.55);
+/* Reels Frame Container */
+.frame {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 9/16;
+    background: linear-gradient(180deg, #05080d, #0b0f16);
+    border-radius: 26px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
-/* Loading Skeleton */
-.shimmer {
-    height: 350px;
-    background: linear-gradient(90deg, #1c1c1c, #333, #1c1c1c);
-    background-size: 200%;
-    animation: shimmerMove 1.4s infinite;
-}
-
-@keyframes shimmerMove {
-    from { background-position: -200% 0; }
-    to   { background-position: 200% 0; }
+/* Full image inside frame — NO CROPPING */
+.frame img {
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: contain;
+    border-radius: 20px;
 }
 
 /* VIEWER */
@@ -215,19 +189,17 @@ header .line2 {
     position: fixed;
     inset: 0;
     background: rgba(0,0,0,0.95);
+    display: flex;
     justify-content: center;
     align-items: center;
     z-index: 10000;
-    backdrop-filter: blur(12px);
 }
-
 #viewer img {
     max-width: 92%;
     max-height: 92%;
     border-radius: 22px;
     box-shadow: 0 0 42px rgba(0,255,255,0.3);
 }
-
 #viewerClose {
     position: absolute;
     top: 25px;
@@ -240,16 +212,14 @@ header .line2 {
 footer {
     text-align: center;
     padding: 55px 0 65px;
-    opacity: .85;
     line-height: 1.7;
+    opacity: .85;
 }
-
 footer a {
     color: #00eaff;
     font-weight: bold;
     text-decoration: none;
 }
-
 footer a:hover {
     color: #ff00ff;
 }
@@ -261,7 +231,6 @@ footer a:hover {
 
 <div id="particles"></div>
 
-<!-- NAV -->
 <nav>
     <div class="title">CORNELIUS AURELIUS</div>
     <div>
@@ -271,30 +240,24 @@ footer a:hover {
     </div>
 </nav>
 
-<!-- PROGRESS BAR -->
 <div id="progressBar"></div>
 
-<!-- FLOATING BUTTON -->
 <div id="homeBtn" onclick="location.href='https://corneliusaurelius.com/'">
     ⬅ MAIN HOME
 </div>
 
-<!-- HEADER -->
 <header>
     <div class="line1">CORNELIUS AURELIUS</div>
     <div class="line2">A.I ART</div>
 </header>
 
-<!-- GALLERY -->
 <div class="grid" id="gallery"></div>
 
-<!-- VIEWER -->
 <div id="viewer">
     <div id="viewerClose">&times;</div>
     <img id="viewerImg">
 </div>
 
-<!-- FOOTER -->
 <footer>
     <a href="https://corneliusaurelius.com/" target="_blank">Main Homepage</a> •
     <a href="https://medium.com/@138licensing" target="_blank">Medium</a> •
@@ -310,45 +273,32 @@ footer a:hover {
 let progress = 0;
 const bar = document.getElementById("progressBar");
 function updateProgress() {
-    progress += 0.4;
+    progress += 100 / 253;
     bar.style.width = progress + "%";
 }
 
-/* IMAGE LOADING + GALLERY BUILD */
+/* BUILD GALLERY */
 const gallery = document.getElementById("gallery");
 const baseURL = "https://raw.githubusercontent.com/Cornelius-Aurelius/AI-ART/main/";
-const images = [];
 
-for (let i = 1; i <= 253; i++) images.push(`${i}.png`);
-
-let loaded = 0;
-
-images.forEach(file => {
+for (let i = 1; i <= 253; i++) {
     const wrap = document.createElement("div");
     wrap.className = "item";
 
-    const shimmer = document.createElement("div");
-    shimmer.className = "shimmer";
+    const frame = document.createElement("div");
+    frame.className = "frame";
 
     const img = document.createElement("img");
-    img.style.display = "none";
-    img.src = baseURL + file;
+    img.src = baseURL + i + ".png";
     img.loading = "lazy";
 
-    img.onload = () => {
-        shimmer.remove();
-        img.style.display = "block";
-        loaded++;
-        updateProgress();
-        if (loaded >= images.length) bar.style.width = "100%";
-    };
+    img.onload = () => updateProgress();
+    img.onclick = () => openViewer(baseURL + i + ".png");
 
-    img.onclick = () => openViewer(baseURL + file);
-
-    wrap.appendChild(shimmer);
-    wrap.appendChild(img);
+    frame.appendChild(img);
+    wrap.appendChild(frame);
     gallery.appendChild(wrap);
-});
+}
 
 /* VIEWER */
 const viewer = document.getElementById("viewer");
